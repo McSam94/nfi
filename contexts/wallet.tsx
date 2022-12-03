@@ -1,18 +1,11 @@
 import * as React from "react";
-import { providers } from "ethers";
 import {
   EthereumClient,
   modalConnectors,
   walletConnectProvider,
 } from "@web3modal/ethereum";
 import { Web3Modal } from "@web3modal/react";
-import {
-  Chain,
-  chain,
-  configureChains,
-  createClient,
-  WagmiConfig,
-} from "wagmi";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { SUPPORTED_CHAINS } from "@constants/index";
 
 if (!process.env.NEXT_PUBLIC_PROJECT_ID) {
@@ -20,23 +13,6 @@ if (!process.env.NEXT_PUBLIC_PROJECT_ID) {
 }
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
-
-type Provider = ({
-  chainId,
-}: {
-  chainId?: number | undefined;
-}) => providers.FallbackProvider & {
-  chains: Chain[];
-  pollingInterval: number;
-};
-
-interface WalletContextInt {
-  provider: Provider | undefined;
-}
-
-const walletContext = React.createContext<WalletContextInt>({
-  provider: undefined,
-});
 
 const WalletProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { provider } = configureChains(SUPPORTED_CHAINS, [
@@ -64,6 +40,3 @@ const WalletProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 };
 
 export default WalletProvider;
-export const useWallet = () => {
-  return React.useContext(walletContext);
-};

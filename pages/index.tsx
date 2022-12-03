@@ -1,5 +1,4 @@
 import DisplayCol from "@components/DisplayCol";
-import { useWallet } from "contexts/wallet";
 import { useAccount, useNetwork } from "wagmi";
 
 export default function Home() {
