@@ -25,6 +25,12 @@ const WalletProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
       appName: "NFI",
       chains: SUPPORTED_CHAINS,
     }),
+    logger: {
+      warn:
+        process.env.NODE_ENV === "development"
+          ? (message) => console.warn(message)
+          : null,
+    },
     provider,
   });
 
